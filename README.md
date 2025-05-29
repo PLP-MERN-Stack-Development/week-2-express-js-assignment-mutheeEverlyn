@@ -1,63 +1,86 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=19659109&assignment_repo_type=AssignmentRepo)
 # Express.js RESTful API Assignment
 
-This assignment focuses on building a RESTful API using Express.js, implementing proper routing, middleware, and error handling.
-
-## Assignment Overview
-
-You will:
-1. Set up an Express.js server
-2. Create RESTful API routes for a product resource
-3. Implement custom middleware for logging, authentication, and validation
-4. Add comprehensive error handling
-5. Develop advanced features like filtering, pagination, and search
+This project is a RESTful API built with Express.js to manage a collection of products. It features proper routing, custom middleware for logging, authentication, validation, comprehensive error handling, and advanced API features like filtering, pagination, and search.
 
 ## Getting Started
 
-1. Accept the GitHub Classroom assignment invitation
-2. Clone your personal repository that was created by GitHub Classroom
-3. Install dependencies:
-   ```
-   npm install
-   ```
-4. Run the server:
-   ```
-   npm start
-   ```
-
-## Files Included
-
-- `Week2-Assignment.md`: Detailed assignment instructions
-- `server.js`: Starter Express.js server file
-- `.env.example`: Example environment variables file
-
-## Requirements
-
-- Node.js (v18 or higher)
-- npm or yarn
+### Prerequisites
+- Node.js v18 or higher  
+- npm or yarn  
 - Postman, Insomnia, or curl for API testing
+
+### Installation
+1. Clone your GitHub Classroom repository:  
+```bash
+git clone <your-repo-url>
+cd <your-repo-folder>
+```
+2. Install dependencies:  
+```bash
+npm install
+```
+3. Create a `.env` file based on `.env.example`:  
+```
+API_KEY=your-secure-api-key
+PORT=3000
+```
+Replace `your-secure-api-key` with your chosen secret string. This key is required for API authentication.
+
+4. Start the server:  
+```bash
+pnpm start
+```
+The server will run on `http://localhost:3000` (or the port you set in `.env`).
+
+## Authentication
+
+All API endpoints require a valid API key sent via the HTTP header:  
+```
+x-api-key: your-secure-api-key
+```
+Requests without this key or with an invalid key will receive a **401 Unauthorized** response.
 
 ## API Endpoints
 
-The API will have the following endpoints:
+1. Get all products  
+`GET /api/products`  
+Supports optional query parameters:  
+- `category` — filter products by category (case-insensitive)  
+- `search` — search products by name (case-insensitive)  
+- `page` — page number for pagination (default: 1)  
+- `limit` — number of products per page (default: 10)  
 
-- `GET /api/products`: Get all products
-- `GET /api/products/:id`: Get a specific product
-- `POST /api/products`: Create a new product
-- `PUT /api/products/:id`: Update a product
-- `DELETE /api/products/:id`: Delete a product
+2. Get a product by ID  
+`GET /api/products/:id`
 
-## Submission
+3. Create a new product  
+`POST /api/products`
 
-Your work will be automatically submitted when you push to your GitHub Classroom repository. Make sure to:
+4. Update a product  
+`PUT /api/products/:id`
 
-1. Complete all the required API endpoints
-2. Implement the middleware and error handling
-3. Document your API in the README.md
-4. Include examples of requests and responses
+5. Delete a product  
+`DELETE /api/products/:id`
 
-## Resources
+## Middleware Summary
 
-- [Express.js Documentation](https://expressjs.com/)
-- [RESTful API Design Best Practices](https://restfulapi.net/)
-- [HTTP Status Codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) 
+- Logger: Logs method, URL, and timestamp for each request  
+- Authentication: Verifies API key in `x-api-key` header  
+- Validation: Validates product data on POST and PUT  
+- Error Handling: Sends appropriate JSON error responses
+
+## Error Responses
+
+| Status Code | Error Type           | Message                        |
+|-------------|----------------------|--------------------------------|
+| 400         | ValidationError      | Invalid product data           |
+| 401         | Unauthorized         | API key missing or invalid     |
+| 404         | NotFoundError        | Product not found              |
+| 500         | InternalServerError  | Something went wrong           |
+
+## Environment Variables (.env)
+
+```
+API_KEY=your-secure-api-key
+PORT=3000
+```
