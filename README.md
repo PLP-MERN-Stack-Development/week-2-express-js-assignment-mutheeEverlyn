@@ -12,12 +12,12 @@ This project is a RESTful API built with Express.js to manage a collection of pr
 ### Installation
 1. Clone your GitHub Classroom repository:  
 ```bash
-git clone <your-repo-url>
-cd <your-repo-folder>
+git clone https://github.com/PLP-MERN-Stack-Development/week-2-express-js-assignment-mutheeEverlyn.git
+cd week-2-express-js-assignment-mutheeEverlyn
 ```
 2. Install dependencies:  
 ```bash
-npm install
+pnpm install
 ```
 3. Create a `.env` file based on `.env.example`:  
 ```
